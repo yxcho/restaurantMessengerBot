@@ -9,13 +9,16 @@ let getFacebookUsername = (sender_psid) => {
         uri: uri,
         method: "GET",
       },
-      function (err, res, body) {
-        if (!err) {
+
+      function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+          // Print out the response body
           body = JSON.parse(body);
           let username = `${body.last_name} ${body.first_name}`;
-          resolve(username);
+          res.send(body);
         } else {
-          reject("Unable to send message:" + err);
+          // TODO: Handle errors
+          res.send(error);
         }
       }
     );
