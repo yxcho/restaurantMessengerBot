@@ -128,8 +128,8 @@ let handlePostback = async (sender_psid, received_postback) => {
       break;
     case "GET_STARTED":
       // get user details
-      let username = await chatBotServices.getFacebookUsername(sender_psid);
-      response = { text: `Hi ${username}, welcome to KPW Restaurant!`};
+    //   let username = await chatBotServices.getFacebookUsername(sender_psid);
+      response = { text: `Hi, welcome to KPW Restaurant!`};
       break;
     default:
       console.log("ERROR with switch case payload");
