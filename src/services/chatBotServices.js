@@ -30,37 +30,42 @@ let getFacebookUsername = function (sender_psid) {
 
 let sendResponseWelcomeNewCustomer = function (username, sender_psid) {
   return new Promise(async function (resolve, reject) {
-    let first_response = { text: `Welcome ${username} to Juicy Restaurant!` };
-    let second_response = {
-      attachment: {
-        type: "template",
-        payload: {
-          template_type: "generic",
-          elements: [
-            {
-              title: "Juicy restaurant",
-              subtitle: "Check out our menu",
-              image_url: "https://bit.ly/imageToSend",
-              buttons: [
-                {
-                  type: "postback",
-                  title: "Main menu",
-                  payload: "MENU",
-                },
-              ],
-            },
-          ],
+    try {
+      let first_response = { text: `Welcome ${username} to Juicy Restaurant!` };
+      let second_response = {
+        attachment: {
+          type: "template",
+          payload: {
+            template_type: "generic",
+            elements: [
+              {
+                title: "Juicy restaurant",
+                subtitle: "Check out our menu",
+                image_url: "https://bit.ly/imageToSend",
+                buttons: [
+                  {
+                    type: "postback",
+                    title: "Main menu",
+                    payload: "MENU",
+                  },
+                ],
+              },
+            ],
+          },
         },
-      },
-    };
+      };
 
-    // send a welcome message
-    await sendMessage(sender_psid, first_response);
-    await sendMessage(sender_psid, second_response);
+      // send a welcome message
+      await sendMessage(sender_psid, first_response);
+      await sendMessage(sender_psid, second_response);
+      resolve("DONE");
+    } catch (e) {
+      reject(e);
+    }
   });
 };
 
-let sendMessage = function (sender_id, response) {
+let sendMessage = function (sender_psid, response) {
   let request_body = {
     recipient: {
       id: sender_psid,
