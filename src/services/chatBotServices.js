@@ -7,10 +7,9 @@ let getFacebookUsername = (sender_psid) => {
     request(
       {
         uri: uri,
-        //   qs: { access_token: PAGE_ACCESS_TOKEN },
         method: "GET",
       },
-      (err, res, body) => {
+      function (err, res, body) {
         if (!err) {
           body = JSON.parse(body);
           let username = `${body.last_name} ${body.first_name}`;
