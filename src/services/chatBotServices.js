@@ -14,11 +14,11 @@ let getFacebookUsername = function (sender_psid) {
 
       function (err, res, body) {
         if (!err) {
-          console.log(body);
-          resolve(JSON.parse(body));
-        //   body = JSON.parse(body)
-        //   let username = `${body.last_name}, ${body.first_name}`
-        //   resolve(username)
+        //   console.log(body);
+        //   resolve(JSON.parse(body));
+          body = JSON.parse(body)
+          let username = `${body.last_name}, ${body.first_name}`
+          resolve(username)
         } else {
           console.error("Unable to send message:" + err);
           reject(err);
