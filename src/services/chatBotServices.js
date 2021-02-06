@@ -45,7 +45,7 @@ let sendResponseWelcomeNewCustomer = function (username, sender_psid) {
                 buttons: [
                   {
                     type: "postback",
-                    title: "Main menu",
+                    title: "Show me more",
                     payload: "MAIN_MENU",
                   },
                 ],
@@ -164,5 +164,8 @@ let sendMessage = function (sender_psid, response) {
 module.exports = {
   getFacebookUsername: getFacebookUsername,
   sendResponseWelcomeNewCustomer: sendResponseWelcomeNewCustomer,
+  sendMainMenu: sendMainMenu,
+  sendMainMenu: sendMainMenu,
+  sendMainMenu: sendMainMenu,
   sendMainMenu: sendMainMenu,
 };

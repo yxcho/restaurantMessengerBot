@@ -120,25 +120,41 @@ let handlePostback = async (sender_psid, received_postback) => {
 
   // Set the response based on the postback payload
   switch (payload) {
-    case "yes":
-      response = { text: "Thanks!" };
+    case "GET_STARTED":
+      // get user details
+      let username = await chatBotServices.getFacebookUsername(sender_psid);
+      await chatBotServices.sendResponseWelcomeNewCustomer(
+        username,
+        sender_psid
+      );
+      //   response = { text: `Hi ${username}, welcome to Juicy Restaurant!`};
       break;
     case "MAIN_MENU":
       // response = { text: "Oops, try sending another image." };
       // send main menu to users
-      await chatBotServices.sendMainMenu(sender_psid)
+      await chatBotServices.sendMainMenu(sender_psid);
       break;
-    case "GET_STARTED":
-      // get user details
-      let username = await chatBotServices.getFacebookUsername(sender_psid);
-      await chatBotServices.sendResponseWelcomeNewCustomer(username, sender_psid)
-    //   response = { text: `Hi ${username}, welcome to Juicy Restaurant!`};
+    case "LUNCH_MENU":
+      response = { text: "Thanks!" };
       break;
+    case "DINNER_MENU":
+      response = { text: "Thanks!" };
+      break;
+    case "DRINKS_MENU":
+      response = { text: "Thanks!" };
+      break;
+    case "RESERVE_TABLE":
+      response = { text: "Thanks!" };
+      break;
+    case "SHOW_ROOMS":
+      response = { text: "Thanks!" };
+      break;
+
     default:
       console.log("ERROR with switch case payload");
   }
   // Send the message to acknowledge the postback
-//   callSendAPI(sender_psid, response);
+  //   callSendAPI(sender_psid, response);
 };
 
 // Sends response messages via the Send API
