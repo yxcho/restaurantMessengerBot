@@ -150,6 +150,8 @@ let handleMessageWithEntities = function (message) {
     let entity = firstEntity(message.nlp, name);
     if (entity && entity.confidence > 0.6) {
       entityChosen = name;
+      console.log(`TEST = ${entity.confidence}`);
+
       data.value = entity.value;
     }
   });
