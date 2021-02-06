@@ -166,8 +166,11 @@ let handleMessageWithEntities = function (message) {
 };
 
 function firstEntity(nlp, name) {
-  console.log(`hello: ${nlp}, ${name}`)
-  return nlp && nlp.entities && nlp.traits[name] && nlp.traits[name][0];
+  console.log(`hello: ${nlp.entities}, ${name}`)
+  console.log(`hello: ${nlp.entities[name]}, ${name}`)
+  console.log(`hello: ${nlp.entities[name][0]}, ${name}`)
+  return nlp && nlp.entities && nlp.entities[name] && nlp.entities[name][0];
+  // return nlp && nlp.entities && nlp.entities[name] && nlp.entities[name][0];
 }
 
 // Handles messaging_postbacks events
