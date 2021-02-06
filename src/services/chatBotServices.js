@@ -104,8 +104,8 @@ let sendMainMenu = function (sender_psid) {
                 buttons: [
                   {
                     type: "postback",
-                    title: "Reserve a table",
-                    payload: "RESERVE_TABLE",
+                    title: "Make an order",
+                    payload: "MAKE_ORDER",
                   },
                 ],
               },
@@ -404,6 +404,18 @@ let goBackToLunchMenu = function (sender_psid) {
   sendLunchMenu(sender_psid);
 };
 
+let handleMakeOrder = function (sender_psid) {
+  return new Promise(async function (resolve, reject) {
+    try {
+      let username = await getFacebookUsername(sender_psid);
+      let response = { text: `Hi ${username}, what would you like to order?` };
+      await sendMessage(sender_psid, response);
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
 let sendMessage = function (sender_psid, response) {
   let request_body = {
     recipient: {
@@ -440,4 +452,5 @@ module.exports = {
   sendAppertizerMenu: sendAppertizerMenu,
   goBackToMainMenu: goBackToMainMenu,
   goBackToLunchMenu: goBackToLunchMenu,
+  handleMakeOrder: handleMakeOrder,
 };

@@ -127,27 +127,18 @@ let handlePostback = async (sender_psid, received_postback) => {
         username,
         sender_psid
       );
-      //   response = { text: `Hi ${username}, welcome to Juicy Restaurant!`};
       break;
     case "MAIN_MENU":
-      // response = { text: "Oops, try sending another image." };
-      // send main menu to users
       await chatBotServices.sendMainMenu(sender_psid);
       break;
     case "LUNCH_MENU":
-      await chatBotServices.sendLunchMenu(sender_psid)
+      await chatBotServices.sendLunchMenu(sender_psid);
       break;
     case "DINNER_MENU":
       await chatBotServices.sendDinnerMenu(sender_psid);
       break;
     case "DRINKS_MENU":
       await chatBotServices.sendDrinksMenu(sender_psid);
-      break;
-    case "RESERVE_TABLE":
-      response = { text: "Thanks!" };
-      break;
-    case "SHOW_ROOMS":
-      response = { text: "Thanks!" };
       break;
     case "SHOW_APPETIZERS":
       await chatBotServices.sendAppertizerMenu(sender_psid);
@@ -157,6 +148,12 @@ let handlePostback = async (sender_psid, received_postback) => {
       break;
     case "BACK_TO_LUNCH_MENU":
       await chatBotServices.goBackToLunchMenu(sender_psid);
+      break;
+    case "MAKE_ORDER":
+      await chatBotServices.handleMakeOrder(sender_psid);
+      break;
+    case "SHOW_ROOMS":
+      response = { text: "Thanks!" };
       break;
     case "YES":
       response = { text: "Thanks!" };
