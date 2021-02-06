@@ -111,18 +111,19 @@ let getWebhook = (req, res) => {
 //   callSendAPI(sender_psid, response);
 // }
 
-function handleMessage(sender_psid, received_message) {
+let handleMessage = async function (sender_psid, received_message) {
   // handle text message
   let entity = handleMessageWithEntities(received_message);
 
-  if (entity === "datetime") {
-  } else if (entity === "phone_number") {
+  if (entity.name === "datetime") {
+    await chatBotServices.sendMessageAskingQuantity(sender_psid);
+  } else if (entity.name === "phone_number") {
   } else {
   }
   // handle quick reply message
 
   // handle attachment message
-}
+};
 
 let handleMessageWithEntities = function (message) {
   let entityArray = [
@@ -133,7 +134,7 @@ let handleMessageWithEntities = function (message) {
     "location",
   ];
   let entityChosen = "";
-  let data = {};
+  let data = {}; // object saving value and name of the entity chosen
   entityArray.forEach((name) => {
     let entity = firstEntity(message.nlp, name);
     if (entity && entity.confidence > 0.8) {
@@ -142,7 +143,7 @@ let handleMessageWithEntities = function (message) {
     }
   });
   data.name = entityChosen;
-  console.log(`Data = ${data}`);
+  console.log(`Data = ${data.name}`);
   return data;
 };
 

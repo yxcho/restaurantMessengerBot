@@ -404,6 +404,52 @@ let goBackToLunchMenu = function (sender_psid) {
   sendLunchMenu(sender_psid);
 };
 
+let sendMessageAskingQuantity = function (sender_psid) {
+  let request_body = {
+    recipient: {
+      id: sender_psid,
+    },
+    messaging_type: "RESPONSE",
+    message: {
+      text: "How many do you want?",
+      quick_replies: [
+        {
+          content_type: "text",
+          title: "1",
+          payload: "QTY_ONE",
+        },
+        {
+          content_type: "text",
+          title: "2",
+          payload: "QTY_TWO",
+        },
+        {
+          content_type: "text",
+          title: "5",
+          payload: "QTY_FIVE",
+        },
+      ],
+    },
+  };
+
+  // Send the HTTP request to the Messenger Platform
+  request(
+    {
+      uri: "https://graph.facebook.com/v9.0/me/messages",
+      qs: { access_token: PAGE_ACCESS_TOKEN },
+      method: "POST",
+      json: request_body,
+    },
+    (err, res, body) => {
+      if (!err) {
+        console.log("message sent!");
+      } else {
+        console.error("Unable to send message:" + err);
+      }
+    }
+  );
+};
+
 let handleMakeOrder = function (sender_psid) {
   return new Promise(async function (resolve, reject) {
     try {
@@ -453,4 +499,5 @@ module.exports = {
   goBackToMainMenu: goBackToMainMenu,
   goBackToLunchMenu: goBackToLunchMenu,
   handleMakeOrder: handleMakeOrder,
+  sendMessageAskingQuantity: sendMessageAskingQuantity,
 };
