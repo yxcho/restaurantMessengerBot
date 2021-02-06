@@ -133,14 +133,17 @@ let handleMessageWithEntities = function (message) {
     "location",
   ];
   let entityChosen = "";
+  let data = {};
   entityArray.forEach((name) => {
     let entity = firstEntity(message.nlp, name);
     if (entity && entity.confidence > 0.8) {
       entityChosen = name;
+      data.value = entity.value;
     }
   });
-  console.log(entityChosen);
-  return entityChosen;
+  data.name = entityChosen;
+  console.log(`Data = ${data}`);
+  return data;
 };
 
 function firstEntity(nlp, name) {
