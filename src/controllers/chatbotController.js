@@ -111,9 +111,20 @@ let getWebhook = (req, res) => {
 //   callSendAPI(sender_psid, response);
 // }
 
-let handleMessage = async function (sender_psid, received_message) {
+let handleMessage = async function (sender_psid, message) {
+  // checking quick reply
+  if (message && message.quick_reply && message.quick_reply.payload) {
+    if (
+      message.quick_reply.payload === "QTY_ONE" ||
+      message.quick_reply.payload === "QTY_TWO" ||
+      message.quick_reply.payload === "QTY_FIVE"
+    ) {
+      //  asking about order item quantity
+      await chatBotServices.sendMessageAskingPhoneNumber(sender_psid);
+    }
+  }
   // handle text message
-  let entity = handleMessageWithEntities(received_message);
+  let entity = handleMessageWithEntities(message);
 
   if (entity.name === "datetime") {
     await chatBotServices.sendMessageAskingQuantity(sender_psid);
@@ -137,7 +148,7 @@ let handleMessageWithEntities = function (message) {
   let data = {}; // object saving value and name of the entity chosen
   entityArray.forEach((name) => {
     let entity = firstEntity(message.nlp, name);
-    if (entity && entity.confidence > 0.8) {
+    if (entity && entity.confidence > 0.6) {
       entityChosen = name;
       data.value = entity.value;
     }

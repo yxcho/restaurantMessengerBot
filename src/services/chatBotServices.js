@@ -450,6 +450,40 @@ let sendMessageAskingQuantity = function (sender_psid) {
   );
 };
 
+let sendMessageAskingPhoneNumber = function (sender_psid) {
+  let request_body = {
+    recipient: {
+      id: sender_psid,
+    },
+    messaging_type: "RESPONSE",
+    message: {
+      text: "Thank you, and what is your contact number?",
+      quick_replies: [
+        {
+          content_type: "user_phone_number",
+        },
+      ],
+    },
+  };
+
+  // Send the HTTP request to the Messenger Platform
+  request(
+    {
+      uri: "https://graph.facebook.com/v9.0/me/messages",
+      qs: { access_token: PAGE_ACCESS_TOKEN },
+      method: "POST",
+      json: request_body,
+    },
+    (err, res, body) => {
+      if (!err) {
+        console.log("message sent!");
+      } else {
+        console.error("Unable to send message:" + err);
+      }
+    }
+  );
+};
+
 let handleMakeOrder = function (sender_psid) {
   return new Promise(async function (resolve, reject) {
     try {
@@ -500,4 +534,5 @@ module.exports = {
   goBackToLunchMenu: goBackToLunchMenu,
   handleMakeOrder: handleMakeOrder,
   sendMessageAskingQuantity: sendMessageAskingQuantity,
+  sendMessageAskingPhoneNumber: sendMessageAskingPhoneNumber,
 };
