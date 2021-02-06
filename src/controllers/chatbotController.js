@@ -165,6 +165,7 @@ let handleMessageWithEntities = function (message) {
 };
 
 function firstEntity(nlp, name) {
+  console.log(`hello: ${nlp}, ${name}`)
   return nlp && nlp.entities && nlp.entities[name] && nlp.entities[name][0];
 }
 
