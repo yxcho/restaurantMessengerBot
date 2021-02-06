@@ -135,19 +135,27 @@ let handlePostback = async (sender_psid, received_postback) => {
       await chatBotServices.sendMainMenu(sender_psid);
       break;
     case "LUNCH_MENU":
-      response = { text: "Thanks!" };
+      await chatBotServices.sendLunchMenu(sender_psid)
       break;
     case "DINNER_MENU":
-      response = { text: "Thanks!" };
+      await chatBotServices.sendDinnerMenu(sender_psid);
       break;
     case "DRINKS_MENU":
-      response = { text: "Thanks!" };
+      await chatBotServices.sendDrinksMenu(sender_psid);
       break;
     case "RESERVE_TABLE":
       response = { text: "Thanks!" };
       break;
     case "SHOW_ROOMS":
       response = { text: "Thanks!" };
+      break;
+    case "YES":
+      response = { text: "Thanks!" };
+      callSendAPI(sender_psid, response);
+      break;
+    case "NO":
+      response = { text: "No worries!" };
+      callSendAPI(sender_psid, response);
       break;
 
     default:

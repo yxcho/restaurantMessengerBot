@@ -98,7 +98,8 @@ let sendMainMenu = function (sender_psid) {
               },
               {
                 title: "Opening Hours",
-                subtitle: "Mon to Fri - 10AM - 11PM | Sat - 5PM - 10PM | Sun - 5PM - 9PM",
+                subtitle:
+                  "Mon to Fri - 10AM - 11PM | Sat - 5PM - 10PM | Sun - 5PM - 9PM",
                 image_url: "https://bit.ly/imageOpening",
                 buttons: [
                   {
@@ -133,7 +134,214 @@ let sendMainMenu = function (sender_psid) {
   });
 };
 
+let sendLunchMenu = function (sender_psid) {
+  return new Promise(async function (resolve, reject) {
+    try {
+      let response = {
+        attachment: {
+          type: "template",
+          payload: {
+            template_type: "generic",
+            elements: [
+              {
+                title: "Appetizers",
+                image_url: "https://bit.ly/imageAppetizer",
+                buttons: [
+                  {
+                    type: "postback",
+                    title: "Appertizers",
+                    payload: "SHOW_APPETIZERS",
+                  },
+                ],
+              },
+              {
+                title: "Salad",
+                image_url: "https://bit.ly/imageSalad",
+                buttons: [
+                  {
+                    type: "postback",
+                    title: "Salad",
+                    payload: "SALAD",
+                  },
+                ],
+              },
+              {
+                title: "Western food",
+                image_url: "https://bit.ly/imageFish",
+                buttons: [
+                  {
+                    type: "postback",
+                    title: "Western food",
+                    payload: "WESTERN",
+                  },
+                ],
+              },
+              {
+                title: "Classics",
+                image_url: "https://bit.ly/imageClassics",
+                buttons: [
+                  {
+                    type: "postback",
+                    title: "Classics",
+                    payload: "SHOW_CLASSICS",
+                  },
+                ],
+              },
+              {
+                title: "Go back",
+                image_url: "https://bit.ly/imageShowRooms",
+                buttons: [
+                  {
+                    type: "postback",
+                    title: "Back to main menu",
+                    payload: "BACK_TO_MAIN_MENU",
+                  },
+                ],
+              },
+            ],
+          },
+        },
+      };
 
+      // send a message
+      await sendMessage(sender_psid, response);
+    } catch (e) {
+      console.log(e);
+    }
+  });
+};
+
+let sendDinnerMenu = function (sender_psid) {
+  return new Promise(async function (resolve, reject) {
+    try {
+      let response = {
+        attachment: {
+          type: "template",
+          payload: {
+            template_type: "generic",
+            elements: [
+              {
+                title: "Appetizers",
+                image_url: "https://bit.ly/imageAppetizer",
+                buttons: [
+                  {
+                    type: "postback",
+                    title: "Appertizers",
+                    payload: "SHOW_APPETIZERS",
+                  },
+                ],
+              },
+              {
+                title: "Salad",
+                image_url: "https://bit.ly/imageSalad",
+                buttons: [
+                  {
+                    type: "postback",
+                    title: "Salad",
+                    payload: "SALAD",
+                  },
+                ],
+              },
+
+              {
+                title: "Go back",
+                image_url: "https://bit.ly/imageShowRooms",
+                buttons: [
+                  {
+                    type: "postback",
+                    title: "Back to main menu",
+                    payload: "BACK_TO_MAIN_MENU",
+                  },
+                ],
+              },
+            ],
+          },
+        },
+      };
+
+      // send a message
+      await sendMessage(sender_psid, response);
+    } catch (e) {
+      console.log(e);
+    }
+  });
+};
+let sendDrinksMenu = function (sender_psid) {
+  return new Promise(async function (resolve, reject) {
+    try {
+      let response = {
+        attachment: {
+          type: "template",
+          payload: {
+            template_type: "generic",
+            elements: [
+              {
+                title: "Appetizers",
+                image_url: "https://bit.ly/imageMenu",
+                buttons: [
+                  {
+                    type: "postback",
+                    title: "Appertizers",
+                    payload: "SHOW_APPETIZERS",
+                  },
+                ],
+              },
+              {
+                title: "Salad",
+                image_url: "https://bit.ly/imageOpening",
+                buttons: [
+                  {
+                    type: "postback",
+                    title: "Salad",
+                    payload: "SALAD",
+                  },
+                ],
+              },
+              {
+                title: "Western food",
+                image_url: "https://bit.ly/imageShowRooms",
+                buttons: [
+                  {
+                    type: "postback",
+                    title: "Western food",
+                    payload: "WESTERN",
+                  },
+                ],
+              },
+              {
+                title: "Classics",
+                image_url: "https://bit.ly/imageShowRooms",
+                buttons: [
+                  {
+                    type: "postback",
+                    title: "Classics",
+                    payload: "SHOW_CLASSICS",
+                  },
+                ],
+              },
+              {
+                title: "Go back",
+                image_url: "https://bit.ly/imageShowRooms",
+                buttons: [
+                  {
+                    type: "postback",
+                    title: "Back to main menu",
+                    payload: "BACK_TO_MAIN_MENU",
+                  },
+                ],
+              },
+            ],
+          },
+        },
+      };
+
+      // send a message
+      await sendMessage(sender_psid, response);
+    } catch (e) {
+      console.log(e);
+    }
+  });
+};
 
 let sendMessage = function (sender_psid, response) {
   let request_body = {
@@ -165,7 +373,7 @@ module.exports = {
   getFacebookUsername: getFacebookUsername,
   sendResponseWelcomeNewCustomer: sendResponseWelcomeNewCustomer,
   sendMainMenu: sendMainMenu,
-  sendMainMenu: sendMainMenu,
-  sendMainMenu: sendMainMenu,
-  sendMainMenu: sendMainMenu,
+  sendLunchMenu: sendLunchMenu,
+  sendDinnerMenu: sendDinnerMenu,
+  sendDrinksMenu: sendDrinksMenu,
 };
