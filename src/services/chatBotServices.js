@@ -77,7 +77,7 @@ let sendMainMenu = function (sender_psid) {
               {
                 title: "Our menus",
                 subtitle: "We have menus for lunch, dinner and drinks",
-                image_url: "https://bit.ly/imageToSend",
+                image_url: "https://bit.ly/imageMenu",
                 buttons: [
                   {
                     type: "postback",
@@ -98,11 +98,8 @@ let sendMainMenu = function (sender_psid) {
               },
               {
                 title: "Opening Hours",
-                subtitle: `Mon to Fri - 10AM - 11PM
-                           Sat - 5PM - 10PM
-                           Sun - 5PM - 9PM
-                          `,
-                image_url: "https://bit.ly/imageToSend",
+                subtitle: "Mon to Fri - 10AM - 11PM | Sat - 5PM - 10PM | Sun - 5PM - 9PM",
+                image_url: "https://bit.ly/imageOpening",
                 buttons: [
                   {
                     type: "postback",
@@ -114,11 +111,11 @@ let sendMainMenu = function (sender_psid) {
               {
                 title: "Banquet rooms",
                 subtitle: "We have venues for all occasions",
-                image_url: "https://bit.ly/imageToSend",
+                image_url: "https://bit.ly/imageShowRooms",
                 buttons: [
                   {
                     type: "postback",
-                    title: "Show restaurant",
+                    title: "Show me around",
                     payload: "SHOW_ROOMS",
                   },
                 ],
