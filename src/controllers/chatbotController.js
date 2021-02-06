@@ -124,6 +124,7 @@ let handleMessage = async function (sender_psid, message) {
     }
   }
   // handle text message
+  console.log(`chatbotcontroller message: ${message}`)
   let entity = handleMessageWithEntities(message);
 
   if (entity.name === "datetime") {
