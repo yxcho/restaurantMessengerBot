@@ -123,8 +123,10 @@ let handlePostback = async (sender_psid, received_postback) => {
     case "yes":
       response = { text: "Thanks!" };
       break;
-    case "no":
-      response = { text: "Oops, try sending another image." };
+    case "MAIN_MENU":
+      // response = { text: "Oops, try sending another image." };
+      // send main menu to users
+      await chatBotServices.sendMainMenu(sender_psid)
       break;
     case "GET_STARTED":
       // get user details

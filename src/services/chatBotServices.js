@@ -40,7 +40,7 @@ let sendResponseWelcomeNewCustomer = function (username, sender_psid) {
             elements: [
               {
                 title: "Juicy restaurant",
-                subtitle: "Check out our menu",
+                subtitle: "Best restaurant in Penang by a legendary chef",
                 image_url: "https://bit.ly/imageToSend",
                 buttons: [
                   {
@@ -64,6 +64,79 @@ let sendResponseWelcomeNewCustomer = function (username, sender_psid) {
     }
   });
 };
+
+let sendMainMenu = function (sender_psid) {
+  return new Promise(async function (resolve, reject) {
+    try {
+      let response = {
+        attachment: {
+          type: "template",
+          payload: {
+            template_type: "generic",
+            elements: [
+              {
+                title: "Our menus",
+                subtitle: "We have menus for lunch, dinner and drinks",
+                image_url: "https://bit.ly/imageToSend",
+                buttons: [
+                  {
+                    type: "postback",
+                    title: "Lunch menu",
+                    payload: "LUNCH_MENU",
+                  },
+                  {
+                    type: "postback",
+                    title: "Dinner menu",
+                    payload: "DINNER_MENU",
+                  },
+                  {
+                    type: "postback",
+                    title: "Drinks",
+                    payload: "DRINKS_MENU",
+                  },
+                ],
+              },
+              {
+                title: "Opening Hours",
+                subtitle: `Mon to Fri - 10AM - 11PM
+                           Sat - 5PM - 10PM
+                           Sun - 5PM - 9PM
+                          `,
+                image_url: "https://bit.ly/imageToSend",
+                buttons: [
+                  {
+                    type: "postback",
+                    title: "Reserve a table",
+                    payload: "RESERVE_TABLE",
+                  },
+                ],
+              },
+              {
+                title: "Banquet rooms",
+                subtitle: "We have venues for all occasions",
+                image_url: "https://bit.ly/imageToSend",
+                buttons: [
+                  {
+                    type: "postback",
+                    title: "Show restaurant",
+                    payload: "SHOW_ROOMS",
+                  },
+                ],
+              },
+            ],
+          },
+        },
+      };
+
+      // send a message
+      await sendMessage(sender_psid, response);
+    } catch (e) {
+      console.log(e);
+    }
+  });
+};
+
+
 
 let sendMessage = function (sender_psid, response) {
   let request_body = {
@@ -94,4 +167,5 @@ let sendMessage = function (sender_psid, response) {
 module.exports = {
   getFacebookUsername: getFacebookUsername,
   sendResponseWelcomeNewCustomer: sendResponseWelcomeNewCustomer,
+  sendMainMenu: sendMainMenu,
 };
