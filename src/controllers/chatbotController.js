@@ -148,7 +148,7 @@ let handleMessageWithEntities = function (message) {
   let entityChosen = "";
   let data = {}; // object saving value and name of the entity chosen
   entityArray.forEach((name) => {
-    console.log("line 150")
+    console.log(`for each entity: ${name}, message.nlp:${message.nlp}, ${message}`)
     let entity = firstEntity(message.nlp, name);
     console.log(`line152: ${entity}`)
     if (entity && entity.confidence > 0.6) {
