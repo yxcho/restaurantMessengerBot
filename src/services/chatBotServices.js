@@ -189,7 +189,7 @@ let sendLunchMenu = function (sender_psid) {
               },
               {
                 title: "Go back",
-                image_url: "https://bit.ly/imageShowRooms",
+                image_url: "https://bit.ly/imageToSend",
                 buttons: [
                   {
                     type: "postback",
@@ -343,6 +343,67 @@ let sendDrinksMenu = function (sender_psid) {
   });
 };
 
+let sendAppertizerMenu = function (sender_psid) {
+  return new Promise(async function (resolve, reject) {
+    try {
+      let response = {
+        attachment: {
+          type: "template",
+          payload: {
+            template_type: "generic",
+            elements: [
+              {
+                title: "Clams on Half Shelf",
+                subtitle: "$19.99 for 2",
+                image_url: "https://bit.ly/imageMenu",
+              },
+              {
+                title: "Oysters",
+                subtitle: "6 for $54",
+                image_url: "https://bit.ly/imageOpening",
+              },
+              {
+                title: "Shrimps",
+                subtitle: "3 for $4",
+                image_url: "https://bit.ly/imageShowRooms",
+              },
+              {
+                title: "Go back",
+                image_url: "https://bit.ly/imageShowRooms",
+                buttons: [
+                  {
+                    type: "postback",
+                    title: "Show lunch menu",
+                    payload: "BACK_TO_LUNCH_MENU",
+                  },
+                  {
+                    type: "postback",
+                    title: "Back to main menu",
+                    payload: "BACK_TO_MAIN_MENU",
+                  },
+                ],
+              },
+            ],
+          },
+        },
+      };
+
+      // send a message
+      await sendMessage(sender_psid, response);
+    } catch (e) {
+      console.log(e);
+    }
+  });
+};
+
+let goBackToMainMenu = function (sender_psid) {
+  sendMainMenu(sender_psid);
+};
+
+let goBackToLunchMenu = function (sender_psid) {
+  sendLunchMenu(sender_psid);
+};
+
 let sendMessage = function (sender_psid, response) {
   let request_body = {
     recipient: {
@@ -376,4 +437,7 @@ module.exports = {
   sendLunchMenu: sendLunchMenu,
   sendDinnerMenu: sendDinnerMenu,
   sendDrinksMenu: sendDrinksMenu,
+  sendAppertizerMenu: sendAppertizerMenu,
+  goBackToMainMenu: goBackToMainMenu,
+  goBackToLunchMenu: goBackToLunchMenu,
 };
