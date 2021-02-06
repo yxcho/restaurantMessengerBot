@@ -46,7 +46,7 @@ let sendResponseWelcomeNewCustomer = function (username, sender_psid) {
                   {
                     type: "postback",
                     title: "Main menu",
-                    payload: "MENU",
+                    payload: "MAIN_MENU",
                   },
                 ],
               },
