@@ -113,7 +113,12 @@ let getWebhook = (req, res) => {
 
 function handleMessage(sender_psid, received_message) {
   // handle text message
-  handleMessageWithEntities(received_message);
+  let entity = handleMessageWithEntities(received_message);
+
+  if (entity === "datetime") {
+  } else if (entity === "phone_number") {
+  } else {
+  }
   // handle quick reply message
 
   // handle attachment message
@@ -134,13 +139,12 @@ let handleMessageWithEntities = function (message) {
       entityChosen = name;
     }
   });
-  console.log("---------------");
   console.log(entityChosen);
-  console.log("---------------");
+  return entityChosen;
 };
 
 function firstEntity(nlp, name) {
-  return npl && nlp.entities && nlp.entities[name] && nlp.entities[name][0];
+  return nlp && nlp.entities && nlp.entities[name] && nlp.entities[name][0];
 }
 
 // Handles messaging_postbacks events
