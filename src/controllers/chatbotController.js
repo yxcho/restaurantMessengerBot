@@ -149,14 +149,14 @@ let handleMessage = async function (sender_psid, message) {
 
   // handle attachment message
   if (message && message.attachments && message.attachments[0].payload) {
-    callSendAPI(sender_psid, "Thank you for watching my video !!!");
+    callSendAPI(sender_psid, "I like that!!!");
     callSendAPIWithTemplate(sender_psid);
     return;
   }
 };
 
 let handleMessageWithEntities = async function (message) {
-  let entityArray = ["wit$datetime:$datetime", "wit$phone_number:phone_number"];
+  let entityArray = ["wit$datetime:$datetime", "wit$phone_number:phone_number", "wit$greetings"];
   let entityChosen = "";
   let data = {}; // object saving value and name of the entity chosen
   entityArray.forEach((name) => {
@@ -170,7 +170,7 @@ let handleMessageWithEntities = async function (message) {
     }
   });
   data.name = entityChosen;
-  console.log(`Data = ${entityChosen}`);
+  console.log(`ENTITY CHOSEN = ${entityChosen}`);
   return data;
 };
 
