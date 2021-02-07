@@ -1,4 +1,5 @@
 require("dotenv").config();
+import { name } from "ejs";
 import request from "request";
 import chatBotServices from "../services/chatBotServices";
 
@@ -125,7 +126,7 @@ let handleMessage = async function (sender_psid, message) {
   }
   // handle text message
   console.log(`chatbotcontroller message: ${message.text}`);
-  console.log(`chatbotcontroller message.nlp.traits: ${message.nlp.traits}`);
+  console.log(`chatbotcontroller message.nlp.traits: ${message.nlp.traits[name][0]}`);
   let entity = handleMessageWithEntities(message);
   console.log(`handleMessage.entity: ${entity}`);
 
@@ -140,7 +141,7 @@ let handleMessage = async function (sender_psid, message) {
 };
 
 let handleMessageWithEntities = function (message) {
-  let entityArray = ["datetime", "phone_number"];
+  let entityArray = ["$datetime", "phone_number"];
   let entityChosen = "";
   let data = {}; // object saving value and name of the entity chosen
   entityArray.forEach((name) => {
