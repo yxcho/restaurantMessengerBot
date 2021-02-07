@@ -112,6 +112,10 @@ let getWebhook = (req, res) => {
 //   callSendAPI(sender_psid, response);
 // }
 
+function firstTrait(nlp, name) {
+  return nlp && nlp.entities && nlp.traits[name] && nlp.traits[name][0];
+}
+
 let handleMessage = async function (sender_psid, message) {
   // checking quick reply
   if (message && message.quick_reply && message.quick_reply.payload) {
@@ -144,10 +148,15 @@ let handleMessage = async function (sender_psid, message) {
   // handle quick reply message
 
   // handle attachment message
+  if (message && message.attachments && message.attachments[0].payload) {
+    callSendAPI(sender_psid, "Thank you for watching my video !!!");
+    callSendAPIWithTemplate(sender_psid);
+    return;
+  }
 };
 
-let handleMessageWithEntities =  async function (message) {
-  let entityArray = ["datetime", "phone_number"];
+let handleMessageWithEntities = async function (message) {
+  let entityArray = ["wit$greetings", "wit$thanks", "wit$bye"];
   let entityChosen = "";
   let data = {}; // object saving value and name of the entity chosen
   entityArray.forEach((name) => {
@@ -165,10 +174,58 @@ let handleMessageWithEntities =  async function (message) {
   return data;
 };
 
-function firstEntity(nlp, name) {
-  return nlp && nlp.entities && nlp.traits[name] && nlp.traits[name][0];
-  // return nlp && nlp.entities && nlp.entities[name] && nlp.entities[name][0];
-}
+// function firstEntity(nlp, name) {
+//   return nlp && nlp.entities && nlp.traits[name] && nlp.traits[name][0];
+//   // return nlp && nlp.entities && nlp.entities[name] && nlp.entities[name][0];
+// }
+
+let callSendAPIWithTemplate = (sender_psid) => {
+  // document fb message template
+  // https://developers.facebook.com/docs/messenger-platform/send-messages/templates
+  let body = {
+    recipient: {
+      id: sender_psid,
+    },
+    message: {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "generic",
+          elements: [
+            {
+              title: "Want to build sth awesome?",
+              image_url:
+                "https://www.nexmo.com/wp-content/uploads/2018/10/build-bot-messages-api-768x384.png",
+              subtitle: "Watch more videos on my youtube channel ^^",
+              buttons: [
+                {
+                  type: "web_url",
+                  url: "https://bit.ly/subscribe-haryphamdev",
+                  title: "Watch now",
+                },
+              ],
+            },
+          ],
+        },
+      },
+    },
+  };
+  request(
+    {
+      uri: "https://graph.facebook.com/v9.0/me/messages",
+      qs: { access_token: process.env.FB_PAGE_TOKEN },
+      method: "POST",
+      json: body,
+    },
+    (err, res, body) => {
+      if (!err) {
+        // console.log('message sent!')
+      } else {
+        console.error("Unable to send message:" + err);
+      }
+    }
+  );
+};
 
 // Handles messaging_postbacks events
 let handlePostback = async (sender_psid, received_postback) => {
