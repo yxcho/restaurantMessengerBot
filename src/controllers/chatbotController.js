@@ -146,8 +146,8 @@ let handleMessage = async function (sender_psid, message) {
   // handle attachment message
 };
 
-let handleMessageWithEntities = function (message) {
-  let entityArray = ["$datetime", "phone_number"];
+let handleMessageWithEntities =  async function (message) {
+  let entityArray = ["datetime", "phone_number"];
   let entityChosen = "";
   let data = {}; // object saving value and name of the entity chosen
   entityArray.forEach((name) => {
