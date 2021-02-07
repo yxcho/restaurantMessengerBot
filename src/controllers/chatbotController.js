@@ -126,6 +126,7 @@ let handleMessage = async function (sender_psid, message) {
   // handle text message
   console.log(`chatbotcontroller message: ${message.text}`)
   let entity = handleMessageWithEntities(message);
+  console.log(`handleMessage.entity: ${entity}`)
 
   if (entity.name === "datetime") {
     await chatBotServices.sendMessageAskingQuantity(sender_psid);
@@ -166,9 +167,9 @@ let handleMessageWithEntities = function (message) {
 };
 
 function firstEntity(nlp, name) {
-  console.log(`hello: ${nlp.traits}, ${name}`)
-  console.log(`hello: ${nlp.traits[name]}, ${name}`)
-  console.log(`hello: ${nlp.traits[name][0]}, ${name}`)
+  console.log(`nlp traits: ${nlp.traits}, ${name}`)
+  console.log(`nlp traits name: ${nlp.traits[name]}, ${name}`)
+  console.log(`nlp traits name 0: ${nlp.traits[name][0]}, ${name}`)
   return nlp && nlp.traits && nlp.traits[name] && nlp.traits[name][0];
   // return nlp && nlp.entities && nlp.entities[name] && nlp.entities[name][0];
 }
