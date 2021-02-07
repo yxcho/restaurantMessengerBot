@@ -156,7 +156,7 @@ let handleMessage = async function (sender_psid, message) {
 };
 
 let handleMessageWithEntities = async function (message) {
-  let entityArray = ["wit$greetings", "wit$thanks", "wit$bye"];
+  let entityArray = ["wit$datetime:$datetime", "wit$phone_number:phone_number"];
   let entityChosen = "";
   let data = {}; // object saving value and name of the entity chosen
   entityArray.forEach((name) => {
