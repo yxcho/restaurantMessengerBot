@@ -154,7 +154,7 @@ let handleMessageWithEntities = function (message) {
 
       data.value = entity.value;
     } else {
-      await chatBotServices.sendMessageAskingPhoneNumber(sender_psid);
+      chatBotServices.sendMessageAskingPhoneNumber(sender_psid);
 
       console.log(`failed: ${entity}`);
     }
