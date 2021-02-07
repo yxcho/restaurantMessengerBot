@@ -155,8 +155,12 @@ let handleMessage = async function (sender_psid, message) {
   }
 };
 
-let handleMessageWithEntities = async function (message) {
-  let entityArray = ["wit$datetime:$datetime", "wit$phone_number:phone_number", "wit$greetings"];
+function handleMessageWithEntities(message) {
+  let entityArray = [
+    "wit$datetime:$datetime",
+    "wit$phone_number:phone_number",
+    "wit$greetings",
+  ];
   let entityChosen = "";
   let data = {}; // object saving value and name of the entity chosen
   entityArray.forEach((name) => {
@@ -172,7 +176,7 @@ let handleMessageWithEntities = async function (message) {
   data.name = entityChosen;
   console.log(`ENTITY CHOSEN = ${entityChosen}`);
   return data;
-};
+}
 
 // function firstEntity(nlp, name) {
 //   return nlp && nlp.entities && nlp.traits[name] && nlp.traits[name][0];
