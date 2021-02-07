@@ -125,7 +125,7 @@ let handleMessage = async function (sender_psid, message) {
   }
   // handle text message
   console.log(`chatbotcontroller message: ${message.text}`);
-  console.log(`chatbotcontroller message: ${message.nlp}`);
+  console.log(`chatbotcontroller message.nlp.traits: ${message.nlp.traits}`);
   let entity = handleMessageWithEntities(message);
   console.log(`handleMessage.entity: ${entity}`);
 
@@ -159,7 +159,7 @@ let handleMessageWithEntities = function (message) {
 };
 
 function firstEntity(nlp, name) {
-  return nlp && nlp.traits && nlp.traits[name] && nlp.traits[name][0];
+  return nlp && nlp.entities && nlp.traits[name] && nlp.traits[name][0];
   // return nlp && nlp.entities && nlp.entities[name] && nlp.entities[name][0];
 }
 
