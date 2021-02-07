@@ -139,9 +139,9 @@ let handleMessage = async function (sender_psid, message) {
   // handle text message
   let entity = handleMessageWithEntities(message);
 
-  if (entity.name === "datetime") {
+  if (entity.name === "wit$datetime:$datetime") {
     await chatBotServices.sendMessageAskingQuantity(sender_psid);
-  } else if (entity.name === "phone_number") {
+  } else if (entity.name === "wit$phone_number:phone_number") {
     await chatBotServices.sendMessageDoneReserveTable(sender_psid);
   } else {
   }
