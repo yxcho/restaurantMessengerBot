@@ -165,8 +165,8 @@ let handleMessageWithEntities = function (message) {
 
 function firstEntity(nlp, name) {
   console.log(`nlp traits: ${nlp.traits}, ${name}`);
-  console.log(`nlp traits name: ${nlp.traits[name]}, ${name}`);
-  console.log(`nlp traits name 0: ${nlp.traits[name][0]}, ${name}`);
+  console.log(`nlp traits name: ${nlp.traits.name}, ${name}`);
+  console.log(`nlp traits name 0: ${nlp.traits.name[0]}, ${name}`);
   return nlp && nlp.traits && nlp.traits[name] && nlp.traits[name][0];
   // return nlp && nlp.entities && nlp.entities[name] && nlp.entities[name][0];
 }
