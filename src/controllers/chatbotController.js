@@ -124,9 +124,10 @@ let handleMessage = async function (sender_psid, message) {
     }
   }
   // handle text message
-  console.log(`chatbotcontroller message: ${message.text}`)
+  console.log(`chatbotcontroller message: ${message.text}`);
+  console.log(`chatbotcontroller message: ${message.nlp}`);
   let entity = handleMessageWithEntities(message);
-  console.log(`handleMessage.entity: ${entity}`)
+  console.log(`handleMessage.entity: ${entity}`);
 
   if (entity.name === "datetime") {
     await chatBotServices.sendMessageAskingQuantity(sender_psid);
@@ -139,26 +140,22 @@ let handleMessage = async function (sender_psid, message) {
 };
 
 let handleMessageWithEntities = function (message) {
-  let entityArray = [
-    "datetime",
-    "amount_of_money",
-    "phone_number",
-    "email",
-    "location",
-  ];
+  let entityArray = ["datetime", "phone_number"];
   let entityChosen = "";
   let data = {}; // object saving value and name of the entity chosen
   entityArray.forEach((name) => {
-    console.log(`for each entity: ${name}, message.nlp:${message.nlp}, ${message.text}`)
+    console.log(
+      `for each entity: ${name}, message.nlp:${message.nlp}, ${message.text}`
+    );
     let entity = firstEntity(message.nlp, name);
-    console.log(`line152: ${entity}`)
+    console.log(`line152: ${entity}`);
     if (entity && entity.confidence > 0.6) {
       entityChosen = name;
       console.log(`TEST = ${entity.confidence}`);
 
       data.value = entity.value;
-    }else{
-      console.log(`failed: ${entity}`)
+    } else {
+      console.log(`failed: ${entity}`);
     }
   });
   data.name = entityChosen;
@@ -167,9 +164,9 @@ let handleMessageWithEntities = function (message) {
 };
 
 function firstEntity(nlp, name) {
-  console.log(`nlp traits: ${nlp.traits}, ${name}`)
-  console.log(`nlp traits name: ${nlp.traits[name]}, ${name}`)
-  console.log(`nlp traits name 0: ${nlp.traits[name][0]}, ${name}`)
+  console.log(`nlp traits: ${nlp.traits}, ${name}`);
+  console.log(`nlp traits name: ${nlp.traits[name]}, ${name}`);
+  console.log(`nlp traits name 0: ${nlp.traits[name][0]}, ${name}`);
   return nlp && nlp.traits && nlp.traits[name] && nlp.traits[name][0];
   // return nlp && nlp.entities && nlp.entities[name] && nlp.entities[name][0];
 }
