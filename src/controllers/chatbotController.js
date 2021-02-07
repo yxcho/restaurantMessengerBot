@@ -144,14 +144,9 @@ let handleMessageWithEntities = function (message) {
   let entityChosen = "";
   let data = {}; // object saving value and name of the entity chosen
   entityArray.forEach((name) => {
-    console.log(
-      `for each entity: ${name}, message.nlp:${message.nlp}, ${message.text}`
-    );
     let entity = firstEntity(message.nlp, name);
-    console.log(`line152: ${entity}`);
     if (entity && entity.confidence > 0.6) {
       entityChosen = name;
-      console.log(`TEST = ${entity.confidence}`);
 
       data.value = entity.value;
     } else {
@@ -159,14 +154,11 @@ let handleMessageWithEntities = function (message) {
     }
   });
   data.name = entityChosen;
-  console.log(`Data = ${data.name}`);
+  console.log(`Data = ${entityChosen}`);
   return data;
 };
 
 function firstEntity(nlp, name) {
-  console.log(`nlp traits: ${nlp.traits}, ${name}`);
-  console.log(`nlp traits name: ${nlp.traits.name}, ${name}`);
-  console.log(`nlp traits name 0: ${nlp.traits.name[0]}, ${name}`);
   return nlp && nlp.traits && nlp.traits[name] && nlp.traits[name][0];
   // return nlp && nlp.entities && nlp.entities[name] && nlp.entities[name][0];
 }
