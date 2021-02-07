@@ -484,6 +484,44 @@ let sendMessageAskingPhoneNumber = function (sender_psid) {
   );
 };
 
+let sendMessageDoneReserveTable = async function (sender_psid) {
+  try {
+    let response = {
+      attachment: {
+        type: "image",
+        payload: {
+          url: "https:bit.ly/giftDonalTrump",
+        },
+      },
+    };
+    await sendMessage(sender_psid, response);
+
+    // get facebook username
+    let username = await getFacebookUsername(sender_psid);
+
+    let response2 = {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "button",
+          text: `Done! \n We will contact you soon ${username}`,
+
+          buttons: [
+            {
+              type: "postback",
+              title: "Show main menu",
+              payload: "MAIN_MENU",
+            },
+          ],
+        },
+      },
+    };
+    await sendMessage(sender_psid, response2);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 let handleMakeOrder = function (sender_psid) {
   return new Promise(async function (resolve, reject) {
     try {
@@ -497,29 +535,37 @@ let handleMakeOrder = function (sender_psid) {
 };
 
 let sendMessage = function (sender_psid, response) {
-  let request_body = {
-    recipient: {
-      id: sender_psid,
-    },
-    message: response,
-  };
+  return new Promise(function (resolve, reject) {
+    try {
+      let request_body = {
+        recipient: {
+          id: sender_psid,
+        },
+        message: response,
+      };
 
-  // Send the HTTP request to the Messenger Platform
-  request(
-    {
-      uri: "https://graph.facebook.com/v9.0/me/messages",
-      qs: { access_token: PAGE_ACCESS_TOKEN },
-      method: "POST",
-      json: request_body,
-    },
-    (err, res, body) => {
-      if (!err) {
-        console.log("message sent!");
-      } else {
-        console.error("Unable to send message:" + err);
-      }
+      // Send the HTTP request to the Messenger Platform
+      request(
+        {
+          uri: "https://graph.facebook.com/v9.0/me/messages",
+          qs: { access_token: PAGE_ACCESS_TOKEN },
+          method: "POST",
+          json: request_body,
+        },
+        (err, res, body) => {
+          if (!err) {
+            console.log("message sent!");
+            resolve("Message sent")
+          } else {
+            console.error("Unable to send message:" + err);
+            reject(`Message cant be sent: ${err}`)
+          }
+        }
+      );
+    } catch (e) {
+      reject(e);
     }
-  );
+  });
 };
 
 module.exports = {
@@ -535,4 +581,5 @@ module.exports = {
   handleMakeOrder: handleMakeOrder,
   sendMessageAskingQuantity: sendMessageAskingQuantity,
   sendMessageAskingPhoneNumber: sendMessageAskingPhoneNumber,
+  sendMessageDoneReserveTable: sendMessageDoneReserveTable,
 };

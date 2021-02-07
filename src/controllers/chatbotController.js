@@ -122,22 +122,25 @@ let handleMessage = async function (sender_psid, message) {
     ) {
       //  asking about order item quantity
       await chatBotServices.sendMessageAskingPhoneNumber(sender_psid);
+      return;
     }
+    // payload is a phone number
+    if (message.quick_reply.payload !== "") {
+      // done
+      await chatBotServices.sendMessageDoneReserveTable(sender_psid);
+    }
+    return;
   }
+
   // handle text message
-  console.log(`chatbotcontroller message: ${message.text}`);
-  console.log(
-    `chatbotcontroller message.nlp.traits: ${message.nlp.traits[name]}`
-  );
   let entity = handleMessageWithEntities(message);
-  console.log(`handleMessage.entity: ${entity}`);
 
   if (entity.name === "datetime") {
     await chatBotServices.sendMessageAskingQuantity(sender_psid);
+  } else if (entity.name === "phone_number") {
+    await chatBotServices.sendMessageDoneReserveTable(sender_psid);
+  } else {
   }
-  //  else if (entity.name === "phone_number") {
-  // } else {
-  // }
   // handle quick reply message
 
   // handle attachment message
@@ -154,8 +157,6 @@ let handleMessageWithEntities = function (message) {
 
       data.value = entity.value;
     } else {
-      chatBotServices.sendMessageAskingPhoneNumber(sender_psid);
-
       console.log(`failed: ${entity}`);
     }
   });
