@@ -160,7 +160,7 @@ let handleMessageWithEntities = async function (message) {
   let entityChosen = "";
   let data = {}; // object saving value and name of the entity chosen
   entityArray.forEach((name) => {
-    let entity = firstEntity(message.nlp, name);
+    let entity = firstTrait(message.nlp, name);
     if (entity && entity.confidence > 0.6) {
       entityChosen = name;
 
