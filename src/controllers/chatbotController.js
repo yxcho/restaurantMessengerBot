@@ -129,9 +129,6 @@ let handleMessage = async function (sender_psid, message) {
   console.log(
     `chatbotcontroller message.nlp.traits: ${message.nlp.traits[name]}`
   );
-  for (i = 0; message.nlp.traits[name].length; i++) {
-    console.log(message.nlp.traits[name][i]);
-  }
   let entity = handleMessageWithEntities(message);
   console.log(`handleMessage.entity: ${entity}`);
 
