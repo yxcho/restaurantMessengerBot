@@ -134,9 +134,10 @@ let handleMessage = async function (sender_psid, message) {
 
   if (entity.name === "datetime") {
     await chatBotServices.sendMessageAskingQuantity(sender_psid);
-  } else if (entity.name === "phone_number") {
-  } else {
   }
+  //  else if (entity.name === "phone_number") {
+  // } else {
+  // }
   // handle quick reply message
 
   // handle attachment message
@@ -153,6 +154,8 @@ let handleMessageWithEntities = function (message) {
 
       data.value = entity.value;
     } else {
+      await chatBotServices.sendMessageAskingPhoneNumber(sender_psid);
+
       console.log(`failed: ${entity}`);
     }
   });
